@@ -5,18 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anonymous Consulting Space</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-
-    <audio id="bgMusic" loop>
-        <source src="mondamusic-lofi-chill-chill-487317.mp3" type="audio/mpeg">
-        เบราว์เซอร์ของคุณไม่รองรับการเล่นเสียง
-    </audio>
-
-    <button id="musicToggle" class="music-btn" onclick="toggleMusic()">
-        🎵 เปิดเสียงพื้นหลัง
-    </button>
 
     <div class="bg-static-shapes">
         <div class="shape circle-1"></div>
@@ -27,22 +20,61 @@
 
     <div class="container">
         
-        <header class="header-box">
-            <h1>Anonymous Consulting Space</h1>
-        </header>
+        <section id="home-page" class="view-section active">
+            <header class="header-box">
+                <h1>Anonymous Consulting Space</h1>
+            </header>
 
-        <div class="main-content">
-            <aside class="sidebar">
-                <button class="nav-btn" onclick="navigateTo('next')">หน้าถัดไป</button>
-                <button class="nav-btn" onclick="navigateTo('settings')">ตั้งค่า</button>
-                <button class="nav-btn" onclick="navigateTo('credits')">เครดิต</button>
-            </aside>
+            <div class="main-content">
+                <aside class="sidebar">
+                    <button class="nav-btn" onclick="switchView('role-page')">เลือกบทบาท</button>
+                    <button class="nav-btn" onclick="switchView('settings-page')">ตั้งค่า</button>
+                    <button class="nav-btn" onclick="triggerAlert('credits')">เครดิต</button>
+                </aside>
 
-            <main class="welcome-box">
-                <h2>ยินดีต้อนรับ</h2>
-                <p>สำหรับท่านที่มีปัญหาความในใจ ที่อยากจะปรึกษาหรือระบาย ทางเรายินดีรับฟัง</p>
-            </main>
-        </div>
+                <main class="welcome-box floating-box">
+                    <h2>ยินดีต้อนรับ</h2>
+                    <p>สำหรับท่านที่มีปัญหาความในใจ ที่อยากจะปรึกษาหรือระบาย ทางเรายินดีรับฟัง</p>
+                </main>
+            </div>
+        </section>
+
+        <section id="role-page" class="view-section">
+            <div class="top-navigation">
+                <button class="back-home-btn" onclick="switchView('home-page')">⬅ กลับหน้าหลัก</button>
+            </div>
+
+            <header class="header-box floating-box">
+                <p>ยินดีต้อนรับทุกท่าน เข้าสู่การปรึกษาแบบไม่เปิดเผยตัวตน คุณสามารถเลือกได้ว่าวันนี้จะทำอะไร</p>
+            </header>
+
+            <div class="role-selection-grid">
+                <div class="role-card pulse-box" onclick="triggerAlert('find-listener')">
+                    <h3>คนต้องการคำปรึกษา</h3>
+                </div>
+                <div class="role-card pulse-box" onclick="triggerAlert('be-advisor')">
+                    <h3>คนให้คำปรึกษา</h3>
+                </div>
+            </div>
+        </section>
+
+        <section id="settings-page" class="view-section">
+            <div class="top-navigation">
+                <button class="back-home-btn" onclick="switchView('home-page')">⬅ กลับหน้าหลัก</button>
+            </div>
+
+            <div class="settings-layout">
+                <div class="settings-sidebar-card" onclick="toggleDarkMode()">
+                    <h3>เปลี่ยนธีม</h3>
+                    <p class="sub-text">เมื่อกดผิวด้านหลังจะเปลี่ยนเป็นโหมดมืด สำหรับคนไม่ชอบความสว่างๆ</p>
+                </div>
+
+                <div class="settings-main-box floating-box">
+                    <p>คิดไว้แล้วว่าจะเข้ามา ตอนนี้ยังไม่มีตั้งค่าอะไรให้กด แต่อนาคตไม่แน่ถะจ๊ะ 😊</p>
+                </div>
+            </div>
+        </section>
+
     </div>
 
     <script src="script.js"></script>
