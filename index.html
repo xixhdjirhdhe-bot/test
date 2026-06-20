@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anonymous Consulting Space</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <audio id="bgMusic" loop>
+        <source src="mondamusic-lofi-chill-chill-487317.mp3" type="audio/mpeg">
+        เบราว์เซอร์ของคุณไม่รองรับการเล่นเสียง
+    </audio>
+
+    <button id="musicToggle" class="music-btn" onclick="toggleMusic()">
+        🎵 เปิดเสียงพื้นหลัง
+    </button>
+
+    <div class="bg-static-shapes">
+        <div class="shape circle-1"></div>
+        <div class="shape circle-2"></div>
+        <div class="shape square-1"></div>
+        <div class="shape triangle-1"></div>
+    </div>
+
+    <div class="container">
+        
+        <header class="header-box">
+            <h1>Anonymous Consulting Space</h1>
+        </header>
+
+        <div class="main-content">
+            <aside class="sidebar">
+                <button class="nav-btn" onclick="navigateTo('next')">หน้าถัดไป</button>
+                <button class="nav-btn" onclick="navigateTo('settings')">เข้าหน้าตั้งค่า</button>
+                <button class="nav-btn" onclick="navigateTo('credits')">เครดิต</button>
+            </aside>
+
+            <main class="welcome-box">
+                <h2>ยินดีต้อนรับ</h2>
+                <p>สำหรับท่านที่มีปัญหาความในใจ ที่อยากจะปรึกษาหรือระบาย ทางเรายินดีรับฟัง</p>
+            </main>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
