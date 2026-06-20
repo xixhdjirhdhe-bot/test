@@ -41,19 +41,38 @@
 
         <section id="role-page" class="view-section">
             <div class="top-navigation">
-                <button class="back-home-btn" onclick="switchView('home-page')">⬅ กลับหน้าหลัก</button>
+                <button class="back-home-btn" onclick="cancelMatching()">⬅ กลับหน้าหลัก</button>
             </div>
 
             <header class="header-box floating-box">
-                <p>ยินดีต้อนรับทุกท่าน เข้าสู่การปรึกษาแบบไม่เปิดเผยตัวตน คุณสามารถเลือกได้ว่าวันนี้จะทำอะไร</p>
+                <p id="role-instruction">ยินดีต้อนรับทุกท่าน เข้าสู่การปรึกษาแบบไม่เปิดเผยตัวตน คุณสามารถเลือกได้ว่าวันนี้จะทำอะไร</p>
             </header>
 
-            <div class="role-selection-grid">
-                <div class="role-card pulse-box" onclick="triggerAlert('find-listener')">
+            <div id="role-selection" class="role-selection-grid">
+                <div class="role-card pulse-box" onclick="startMatching('คนต้องการคำปรึกษา')">
                     <h3>คนต้องการคำปรึกษา</h3>
                 </div>
-                <div class="role-card pulse-box" onclick="triggerAlert('be-advisor')">
+                <div class="role-card pulse-box" onclick="startMatching('คนให้คำปรึกษา')">
                     <h3>คนให้คำปรึกษา</h3>
+                </div>
+            </div>
+
+            <div id="breathing-companion" class="game-container">
+                <div class="queue-status-box">
+                    <div class="queue-info">
+                        <span class="queue-badge">กำลังจับคู่สาย</span>
+                        <p id="queue-timer">คาดว่าจะได้คุยภายใน: 45 วินาที</p>
+                    </div>
+                    <p id="breathing-tip">มาระบายความเครียดด้วยการกำหนดลมหายใจไปพร้อมกับน้องก้อนเมฆกันนะ</p>
+                </div>
+                
+                <div class="breathing-space">
+                    <div id="cloud-mascot" class="cloud-avatar">
+                        <div class="cloud-eye left"></div>
+                        <div class="cloud-eye right"></div>
+                        <div class="cloud-smile"></div>
+                    </div>
+                    <h3 id="breathing-text">เตรียมพร้อม...</h3>
                 </div>
             </div>
         </section>
@@ -70,13 +89,16 @@
                 </div>
 
                 <div class="settings-main-box floating-box">
-                    <p>คิดไว้แล้วว่าจะเข้ามา ตอนนี้ยังไม่มีตั้งค่าอะไรให้กด แต่อนาคตไม่แน่ถะจ๊ะ 😊</p>
+                    <p>ว่ากันว่าจะทำเข้ามา ตอนนี้ยังไม่มีตั้งค่าอะไรให้กด แต่อนาคตไม่แน่ถะจ๊ะ 😊</p>
                 </div>
             </div>
         </section>
 
     </div>
 
+    <script src="script.js"></script>
+</body>
+</html>
     <script src="script.js"></script>
 </body>
 </html>
