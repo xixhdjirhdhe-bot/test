@@ -8,7 +8,7 @@
 }
 
 body {
-    background-color: #ffffff; /* พื้นหลังสีขาวบริสุทธิ์ */
+    background-color: #ffffff;
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -19,13 +19,12 @@ body {
     color: #1a202c;
 }
 
-/* ธีมมืด (Dark Mode) เมื่อเปิดใช้งานจากหน้าตั้งค่า */
 body.dark-theme {
     background-color: #121212;
     color: #f7fafc;
 }
 
-/* เลเยอร์ควบคุมรูปทรงเรขาคณิตพาสเทลฟุ้งๆ */
+/* เลเยอร์รูปทรงเรขาคณิตพาสเทลเบลอฟุ้ง */
 .bg-static-shapes {
     position: fixed;
     top: 0;
@@ -43,7 +42,6 @@ body.dark-theme {
     opacity: 0.35;
 }
 
-/* ปรับลดสีสันเล็กน้อยเมื่ออยู่ในโหมดมืดไม่ให้สว่างแทงตา */
 body.dark-theme .shape {
     opacity: 0.15;
     filter: blur(100px);
@@ -54,7 +52,6 @@ body.dark-theme .shape {
 .square-1 { width: 320px; height: 320px; background: #c7f9cc; border-radius: 40px; top: 35%; left: 12%; }
 .triangle-1 { width: 350px; height: 350px; background: #ffdac1; clip-path: polygon(50% 0%, 0% 100%, 100% 100%); bottom: 15%; right: 12%; }
 
-/* คอนเทนเนอร์หลัก */
 .container {
     width: 100%;
     max-width: 1100px;
@@ -63,7 +60,6 @@ body.dark-theme .shape {
     z-index: 1;
 }
 
-/* ระบบสลับการแสดงผลหน้าของ Single Page UI */
 .view-section {
     display: none;
     animation: fadeEffect 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
@@ -80,46 +76,36 @@ body.dark-theme .shape {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* สไตล์พื้นผิวขอบใสแบบกระจกฝ้าชั้นสูง (Glassmorphic No Border) */
-.header-box, .welcome-box, .role-card, .settings-sidebar-card, .settings-main-box {
+/* สไตล์พื้นผิวกระจกฝ้าขอบใสไร้เส้นแดง */
+.header-box, .welcome-box, .role-card, .settings-sidebar-card, .settings-main-box, .game-container {
     background: rgba(255, 255, 255, 0.45);
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
-    border: 1px solid rgba(255, 255, 255, 0.6); /* ขอบโปร่งแสงใสกิ๊ง */
+    border: 1px solid rgba(255, 255, 255, 0.6);
     border-radius: 20px;
     box-shadow: 0 10px 35px rgba(0, 0, 0, 0.02), 0 2px 10px rgba(0, 0, 0, 0.01);
 }
 
-/* ปรับสีผิวกระจกเมื่ออยู่ในโหมดมืด */
 body.dark-theme .header-box, 
 body.dark-theme .welcome-box, 
 body.dark-theme .role-card, 
 body.dark-theme .settings-sidebar-card, 
-body.dark-theme .settings-main-box {
+body.dark-theme .settings-main-box,
+body.dark-theme .game-container {
     background: rgba(30, 30, 30, 0.45);
     border: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: 0 10px 35px rgba(0, 0, 0, 0.3);
 }
 
-/* ส่วนหัวข้อเว็บบล็อกบนสุด */
 .header-box {
     padding: 30px 40px;
     text-align: left;
 }
 
-.header-box h1 {
-    font-size: 2.2rem;
-    font-weight: 600;
-}
-
-.header-box p {
-    font-size: 1.25rem;
-    line-height: 1.8;
-    color: #2d3748;
-}
+.header-box h1 { font-size: 2.2rem; font-weight: 600; }
+.header-box p { font-size: 1.25rem; line-height: 1.8; color: #2d3748; }
 body.dark-theme .header-box p { color: #e2e8f0; }
 
-/* โครงสร้างหน้าหลัก */
 .main-content {
     display: flex;
     gap: 40px;
@@ -134,7 +120,6 @@ body.dark-theme .header-box p { color: #e2e8f0; }
     flex-shrink: 0;
 }
 
-/* ปุ่มเมนูแบบขอบโปร่งแสงใส */
 .nav-btn, .back-home-btn {
     background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(12px);
@@ -162,42 +147,16 @@ body.dark-theme .nav-btn, body.dark-theme .back-home-btn {
     transform: translateX(5px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
 }
-body.dark-theme .nav-btn:hover, body.dark-theme .back-home-btn:hover {
-    background: rgba(255, 255, 255, 0.15);
-}
+body.dark-theme .nav-btn:hover, body.dark-theme .back-home-btn:hover { background: rgba(255, 255, 255, 0.15); }
 
-/* ปุ่มย้อนกลับด้านบน */
-.top-navigation {
-    display: flex;
-    justify-content: flex-start;
-}
+.top-navigation { display: flex; justify-content: flex-start; }
+.back-home-btn { padding: 10px 20px; font-size: 0.95rem; }
 
-.back-home-btn {
-    padding: 10px 20px;
-    font-size: 0.95rem;
-}
-
-/* กล่องข้อความต้อนรับเนื้อหาหลัก */
-.welcome-box {
-    padding: 50px;
-    flex-grow: 1;
-    min-height: 280px;
-}
-
-.welcome-box h2 {
-    font-size: 1.9rem;
-    margin-bottom: 15px;
-    font-weight: 600;
-}
-
-.welcome-box p {
-    font-size: 1.25rem;
-    line-height: 1.8;
-    color: #4a5568;
-}
+.welcome-box { padding: 50px; flex-grow: 1; min-height: 280px; }
+.welcome-box h2 { font-size: 1.9rem; margin-bottom: 15px; font-weight: 600; }
+.welcome-box p { font-size: 1.25rem; line-height: 1.8; color: #4a5568; }
 body.dark-theme .welcome-box p { color: #cbd5e0; }
 
-/* อนิเมชันแบบที่ 1: ขยับขึ้นลงช้าๆ (Floating Effect) */
 .floating-box {
     animation: floatAnimation 5s ease-in-out infinite;
     will-change: transform;
@@ -209,38 +168,15 @@ body.dark-theme .welcome-box p { color: #cbd5e0; }
     100% { transform: translateY(0px); }
 }
 
-/* โครงสร้างหน้า 2: เลือกบทบาท */
-.role-selection-grid {
-    display: flex;
-    gap: 30px;
-    width: 100%;
-}
+.role-selection-grid { display: flex; gap: 30px; width: 100%; }
+.role-card { flex: 1; padding: 60px 40px; text-align: center; cursor: pointer; display: flex; align-items: center; justify-content: center; min-height: 200px; }
+.role-card h3 { font-size: 1.5rem; font-weight: 600; }
 
-.role-card {
-    flex: 1;
-    padding: 60px 40px;
-    text-align: center;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 200px;
-}
-
-.role-card h3 {
-    font-size: 1.5rem;
-    font-weight: 600;
-}
-
-/* อนิเมชันแบบที่ 2: ขยับกระเพื่อม ขยายตัวเข้าออกช้าๆ (Pulse Effect) */
 .pulse-box {
     animation: pulseAnimation 4s ease-in-out infinite;
     will-change: transform;
 }
-
-.role-selection-grid div:nth-child(2) {
-    animation-delay: 2s; /* ให้กล่องขวาเต้นสลับจังหวะกับกล่องซ้ายเพื่อความนุ่มนวล */
-}
+.role-selection-grid div:nth-child(2) { animation-delay: 2s; }
 
 @keyframes pulseAnimation {
     0% { transform: scale(1); }
@@ -248,45 +184,137 @@ body.dark-theme .welcome-box p { color: #cbd5e0; }
     100% { transform: scale(1); }
 }
 
-/* โครงสร้างหน้า 3: ตั้งค่า */
-.settings-layout {
-    display: flex;
-    gap: 40px;
-    align-items: flex-start;
-}
-
-.settings-sidebar-card {
-    width: 280px;
-    padding: 30px 25px;
-    cursor: pointer;
-    flex-shrink: 0;
-}
-
-.settings-sidebar-card h3 {
-    font-size: 1.3rem;
-    margin-bottom: 10px;
-}
-
-.sub-text {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: #718096;
-}
+.settings-layout { display: flex; gap: 40px; align-items: flex-start; }
+.settings-sidebar-card { width: 280px; padding: 30px 25px; cursor: pointer; flex-shrink: 0; }
+.settings-sidebar-card h3 { font-size: 1.3rem; margin-bottom: 10px; }
+.sub-text { font-size: 0.95rem; line-height: 1.6; color: #718096; }
 body.dark-theme .sub-text { color: #a0aec0; }
+.settings-main-box { flex-grow: 1; padding: 50px; min-height: 220px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; line-height: 1.8; text-align: center; }
 
-.settings-main-box {
-    flex-grow: 1;
-    padding: 50px;
-    min-height: 220px;
+/* ================= CSS ส่วนของเพื่อนฝึกหายใจ (Breathing Companion) ================= */
+.game-container {
+    display: none; /* ซ่อนไว้ตั้งแต่แรก จะสั่งทำงานผ่าน JS */
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+    gap: 35px;
+    width: 100%;
+}
+
+.queue-status-box {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.queue-info {
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 1.3rem;
-    line-height: 1.8;
-    text-align: center;
+    gap: 12px;
+    background: rgba(49, 130, 206, 0.1);
+    padding: 8px 16px;
+    border-radius: 30px;
+}
+body.dark-theme .queue-info { background: rgba(49, 130, 206, 0.2); }
+
+.queue-badge {
+    background: #3182ce;
+    color: white;
+    padding: 3px 10px;
+    font-size: 0.85rem;
+    border-radius: 20px;
+    font-weight: 600;
 }
 
-/* การจัดเรียงเลย์เอาต์หน้าจออุปกรณ์พกพา / มือถือ */
+#queue-timer {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #2b6cb0;
+}
+body.dark-theme #queue-timer { color: #63b3ed; }
+
+#breathing-tip {
+    font-size: 1.1rem;
+    color: #4a5568;
+}
+body.dark-theme #breathing-tip { color: #a0aec0; }
+
+.breathing-space {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    min-height: 240px;
+}
+
+/* รูปร่างของมาสคอตน้องก้อนเมฆ */
+.cloud-avatar {
+    width: 140px;
+    height: 140px;
+    background: #ffffff;
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+body.dark-theme .cloud-avatar { background: #e2e8f0; }
+
+/* สร้างก้อนเมฆย่อยๆ ประกบข้างซ้ายขวาเพื่อให้ดูเป็นรูปเมฆ */
+.cloud-avatar::before, .cloud-avatar::after {
+    content: '';
+    position: absolute;
+    background: inherit;
+    border-radius: 50%;
+}
+.cloud-avatar::before { width: 90px; height: 90px; bottom: 0; left: -40px; }
+.cloud-avatar::after { width: 100px; height: 100px; bottom: 0; right: -45px; }
+
+/* หน้าตาของน้องก้อนเมฆ */
+.cloud-eye {
+    width: 10px;
+    height: 10px;
+    background: #2d3748;
+    border-radius: 50%;
+    position: absolute;
+    top: 55px;
+    z-index: 2;
+}
+.cloud-eye.left { left: 45px; }
+.cloud-eye.right { right: 45px; }
+
+.cloud-smile {
+    width: 20px;
+    height: 10px;
+    border: 3px solid #2d3748;
+    border-top: 0;
+    border-radius: 0 0 15px 15px;
+    position: absolute;
+    top: 70px;
+    z-index: 2;
+}
+
+/* คลาสที่จะถูกเรียกใช้เพื่อเปิดการขยาย-ยุบตัวตามจังหวะลมหายใจ */
+.cloud-avatar.inhale-exhale {
+    animation: breathingCycle 8s ease-in-out infinite;
+}
+
+@keyframes breathingCycle {
+    0%, 100% { transform: scale(1); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); }
+    50% { transform: scale(1.4); box-shadow: 0 20px 50px rgba(49, 130, 206, 0.15); }
+}
+
+#breathing-text {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #2d3748;
+    text-align: center;
+}
+body.dark-theme #breathing-text { color: #f7fafc; }
+
 @media (max-width: 768px) {
     body { padding: 20px 15px; }
     .main-content, .role-selection-grid, .settings-layout { flex-direction: column; gap: 25px; }
@@ -297,4 +325,5 @@ body.dark-theme .sub-text { color: #a0aec0; }
     .nav-btn { text-align: center; }
     .welcome-box, .settings-main-box { padding: 35px 20px; text-align: center; font-size: 1.15rem; }
     .role-card { padding: 45px 20px; min-height: 140px; }
+    .game-container { padding: 30px 15px; }
 }
