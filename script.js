@@ -1,44 +1,39 @@
-// ==========================================================================
-// 1. ระบบควบคุมการเปิด/ปิด เพลงพื้นหลัง (Ambient Audio Controller)
-// ==========================================================================
-function toggleMusic() {
-    const music = document.getElementById('bgMusic');
-    const btn = document.getElementById('musicToggle');
-    
-    // ตั้งระดับความดังที่ 0.2 (กำลังพอดีสำหรับการเปิดฟังคลายเครียดแบบชิลๆ)
-    music.volume = 0.2; 
+// ฟังก์ชันสลับการแสดงผลหน้า UI ต่าง ๆ (Single Page Application)
+function switchView(viewId) {
+    // ซ่อนเซกชันทั้งหมด
+    const sections = document.querySelectorAll('.view-section');
+    sections.forEach(section => {
+        section.classList.remove('active');
+    });
 
-    if (music.paused) {
-        // คำสั่งเล่นเพลง
-        music.play().then(() => {
-            btn.innerText = "⏸️ ปิดเสียงพื้นหลัง";
-            btn.classList.add('playing');
-        }).catch(error => {
-            console.log("การเล่นเสียงอัตโนมัติถูกเบราว์เซอร์บล็อกชั่วคราว: ", error);
-        });
-    } else {
-        // คำสั่งหยุดเล่นเพลง
-        music.pause();
-        btn.innerText = "🎵 เปิดเสียงพื้นหลัง";
-        btn.classList.remove('playing');
+    // เปิดการแสดงผลเฉพาะเซกชันที่เลือก
+    const targetSection = document.getElementById(viewId);
+    if (targetSection) {
+        targetSection.classList.add('active');
     }
+
+    // เลื่อนหน้าจอกลับขึ้นไปด้านบนสุดอย่างนุ่มนวลทุกครั้งที่เปลี่ยนหน้า
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// ==========================================================================
-// 2. ฟังก์ชันควบคุมการทำงานของปุ่มเมนูต่างๆ (Navigation Panel)
-// ==========================================================================
-function navigateTo(page) {
-    switch(page) {
-        case 'next':
-            alert('กำลังนำคุณไปยังหน้าถัดไป...');
-            break;
-        case 'settings':
-            alert('กำลังเข้าสู่หน้าตั้งค่า...');
-            break;
+// ฟังก์ชันเปิด-ปิด โหมดกลางคืน (Dark Mode Toggle)
+function toggleDarkMode() {
+    document.body.classList.toggle('dark-theme');
+}
+
+// ฟังก์ชันจำลองแจ้งเตือนเหตุการณ์ต่าง ๆ ของระบบ
+function triggerAlert(actionType) {
+    switch(actionType) {
         case 'credits':
-            alert('ผู้พัฒนา: Anonymous Consulting Team\nขอบคุณสำหรับการเข้ามาระบายความในใจกับเราครับ :)');
+            alert('ผู้พัฒนาโครงการ: Anonymous Consulting Space Team\nขอบคุณที่แวะเข้ามาใช้งานพื้นที่ปลอดภัยของเราครับ');
+            break;
+        case 'find-listener':
+            alert('ระบบกำลังทำการสุ่มจับคู่คุณเข้ากับผู้ให้คำปรึกษาแบบนิรนาม กรุณารอสักครู่...');
+            break;
+        case 'be-advisor':
+            alert('กำลังเปิดระบบลงทะเบียนคิวเพื่อสลับไปรับฟังปัญหาของเพื่อน ๆ ในระบบนิรนาม...');
             break;
         default:
-            console.log('พบข้อผิดพลาด: ไม่พบหน้านี้');
+            console.log('Action type unknown');
     }
 }
