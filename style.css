@@ -1,58 +1,31 @@
-/* ==========================================================================
-   1. ตั้งค่าพื้นฐานและการจัดวาง
-   ========================================================================== */
+/* ตั้งค่าเริ่มต้นระบบ */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Sarabun', sans-serif;
+    transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 body {
-    background-color: #ffffff; /* พื้นหลังสีขาวสะอาดตา */
+    background-color: #ffffff; /* พื้นหลังสีขาวบริสุทธิ์ */
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 40px 20px;
     overflow-x: hidden;
     position: relative;
+    color: #1a202c;
 }
 
-/* ==========================================================================
-   2. ปุ่มควบคุมเสียงลอยตัว (Floating Audio Button)
-   ========================================================================== */
-.music-btn {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: rgba(255, 255, 255, 0.65);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.8);
-    border-radius: 30px;
-    padding: 12px 24px;
-    font-size: 0.95rem;
-    color: #2d3748;
-    cursor: pointer;
-    z-index: 100;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+/* ธีมมืด (Dark Mode) เมื่อเปิดใช้งานจากหน้าตั้งค่า */
+body.dark-theme {
+    background-color: #121212;
+    color: #f7fafc;
 }
 
-.music-btn:hover {
-    background: rgba(255, 255, 255, 0.95);
-    transform: scale(1.05);
-}
-
-.music-btn.playing {
-    background: rgba(199, 249, 204, 0.7); /* โทนสีเขียวมิ้นท์อ่อนตอนกำลังเล่นเพลง */
-    border-color: rgba(199, 249, 204, 0.9);
-}
-
-/* ==========================================================================
-   3. พื้นหลังรูปทรงเรขาคณิต (Static Blurred Shapes)
-   ========================================================================== */
+/* เลเยอร์ควบคุมรูปทรงเรขาคณิตพาสเทลฟุ้งๆ */
 .bg-static-shapes {
     position: fixed;
     top: 0;
@@ -66,150 +39,262 @@ body {
 
 .shape {
     position: absolute;
-    filter: blur(70px); /* สั่งให้รูปทรงเบลอ ฟุ้ง ละมุน ดูสงบ */
+    filter: blur(85px);
     opacity: 0.35;
 }
 
-/* รูปทรงทรงต่าง ๆ สลับสีสันและตำแหน่งตามภาพเรขาคณิตพาสเทล */
-.circle-1 {
-    width: 450px;
-    height: 450px;
-    background: #b5e2fa; /* สีฟ้าพาสเทล */
-    border-radius: 50%;
-    top: -10%;
-    right: 5%;
+/* ปรับลดสีสันเล็กน้อยเมื่ออยู่ในโหมดมืดไม่ให้สว่างแทงตา */
+body.dark-theme .shape {
+    opacity: 0.15;
+    filter: blur(100px);
 }
 
-.circle-2 {
-    width: 380px;
-    height: 380px;
-    background: #e2cfea; /* สีม่วงพาสเทล */
-    border-radius: 50%;
-    bottom: -5%;
-    left: 2%;
-}
+.circle-1 { width: 450px; height: 450px; background: #b5e2fa; border-radius: 50%; top: -10%; right: 5%; }
+.circle-2 { width: 380px; height: 380px; background: #e2cfea; border-radius: 50%; bottom: -5%; left: -5%; }
+.square-1 { width: 320px; height: 320px; background: #c7f9cc; border-radius: 40px; top: 35%; left: 12%; }
+.triangle-1 { width: 350px; height: 350px; background: #ffdac1; clip-path: polygon(50% 0%, 0% 100%, 100% 100%); bottom: 15%; right: 12%; }
 
-.square-1 {
-    width: 320px;
-    height: 320px;
-    background: #c7f9cc; /* สีเขียวมิ้นท์ */
-    border-radius: 30px;
-    top: 25%;
-    left: 15%;
-}
-
-.triangle-1 {
-    width: 350px;
-    height: 350px;
-    background: #ffdac1; /* สีส้มโอลด์โรสอ่อนๆ */
-    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-    bottom: 15%;
-    right: 12%;
-}
-
-/* ==========================================================================
-   4. หน้าต่างและส่วนควบคุมผู้ใช้ (Glassmorphism UI)
-   ========================================================================== */
+/* คอนเทนเนอร์หลัก */
 .container {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1100px;
     display: flex;
     flex-direction: column;
-    gap: 40px;
     z-index: 1;
 }
 
-/* เทคนิคดีไซน์กล่องกระจกฝ้า */
-.header-box, .welcome-box {
-    background: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.7);
-    border-radius: 16px;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.04);
+/* ระบบสลับการแสดงผลหน้าของ Single Page UI */
+.view-section {
+    display: none;
+    animation: fadeEffect 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
+.view-section.active {
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+}
+
+@keyframes fadeEffect {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* สไตล์พื้นผิวขอบใสแบบกระจกฝ้าชั้นสูง (Glassmorphic No Border) */
+.header-box, .welcome-box, .role-card, .settings-sidebar-card, .settings-main-box {
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.6); /* ขอบโปร่งแสงใสกิ๊ง */
+    border-radius: 20px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.02), 0 2px 10px rgba(0, 0, 0, 0.01);
+}
+
+/* ปรับสีผิวกระจกเมื่ออยู่ในโหมดมืด */
+body.dark-theme .header-box, 
+body.dark-theme .welcome-box, 
+body.dark-theme .role-card, 
+body.dark-theme .settings-sidebar-card, 
+body.dark-theme .settings-main-box {
+    background: rgba(30, 30, 30, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.3);
+}
+
+/* ส่วนหัวข้อเว็บบล็อกบนสุด */
 .header-box {
-    padding: 25px 40px;
+    padding: 30px 40px;
+    text-align: left;
 }
 
 .header-box h1 {
-    color: #1a202c;
     font-size: 2.2rem;
     font-weight: 600;
 }
 
+.header-box p {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    color: #2d3748;
+}
+body.dark-theme .header-box p { color: #e2e8f0; }
+
+/* โครงสร้างหน้าหลัก */
 .main-content {
     display: flex;
-    gap: 50px;
+    gap: 40px;
     align-items: flex-start;
 }
 
-/* สไตล์ปุ่มกดด้านซ้าย */
 .sidebar {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 16px;
     width: 250px;
+    flex-shrink: 0;
 }
 
-.nav-btn {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.8);
-    border-radius: 12px;
-    padding: 16px 25px;
+/* ปุ่มเมนูแบบขอบโปร่งแสงใส */
+.nav-btn, .back-home-btn {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 14px;
+    padding: 16px 24px;
     font-size: 1.1rem;
+    font-weight: 600;
     color: #2d3748;
     cursor: pointer;
     text-align: left;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.01);
     transition: all 0.25s ease;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.01);
 }
 
-.nav-btn:hover {
+body.dark-theme .nav-btn, body.dark-theme .back-home-btn {
+    background: rgba(45, 55, 72, 0.5);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #edf2f7;
+}
+
+.nav-btn:hover, .back-home-btn:hover {
     background: rgba(255, 255, 255, 0.95);
     transform: translateX(5px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+}
+body.dark-theme .nav-btn:hover, body.dark-theme .back-home-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
 }
 
-/* ส่วนต้อนรับด้านขวา + แอนิเมชันลอยแบบนุ่มนวลเบาๆ ไม่กระตุกเครื่อง */
+/* ปุ่มย้อนกลับด้านบน */
+.top-navigation {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.back-home-btn {
+    padding: 10px 20px;
+    font-size: 0.95rem;
+}
+
+/* กล่องข้อความต้อนรับเนื้อหาหลัก */
 .welcome-box {
     padding: 50px;
     flex-grow: 1;
     min-height: 280px;
-    animation: floatingEffect 6s ease-in-out infinite;
 }
 
 .welcome-box h2 {
-    color: #1a202c;
-    font-size: 1.8rem;
+    font-size: 1.9rem;
     margin-bottom: 15px;
+    font-weight: 600;
 }
 
 .welcome-box p {
+    font-size: 1.25rem;
+    line-height: 1.8;
     color: #4a5568;
-    font-size: 1.2rem;
-    line-height: 1.9;
+}
+body.dark-theme .welcome-box p { color: #cbd5e0; }
+
+/* อนิเมชันแบบที่ 1: ขยับขึ้นลงช้าๆ (Floating Effect) */
+.floating-box {
+    animation: floatAnimation 5s ease-in-out infinite;
+    will-change: transform;
 }
 
-@keyframes floatingEffect {
+@keyframes floatAnimation {
     0% { transform: translateY(0px); }
-    50% { transform: translateY(-7px); }
+    50% { transform: translateY(-8px); }
     100% { transform: translateY(0px); }
 }
 
-/* ปรับหน้าตาให้ตรงตามหน้าจอสมาร์ตโฟน */
+/* โครงสร้างหน้า 2: เลือกบทบาท */
+.role-selection-grid {
+    display: flex;
+    gap: 30px;
+    width: 100%;
+}
+
+.role-card {
+    flex: 1;
+    padding: 60px 40px;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+}
+
+.role-card h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+/* อนิเมชันแบบที่ 2: ขยับกระเพื่อม ขยายตัวเข้าออกช้าๆ (Pulse Effect) */
+.pulse-box {
+    animation: pulseAnimation 4s ease-in-out infinite;
+    will-change: transform;
+}
+
+.role-selection-grid div:nth-child(2) {
+    animation-delay: 2s; /* ให้กล่องขวาเต้นสลับจังหวะกับกล่องซ้ายเพื่อความนุ่มนวล */
+}
+
+@keyframes pulseAnimation {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); box-shadow: 0 15px 40px rgba(0,0,0,0.04); }
+    100% { transform: scale(1); }
+}
+
+/* โครงสร้างหน้า 3: ตั้งค่า */
+.settings-layout {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+.settings-sidebar-card {
+    width: 280px;
+    padding: 30px 25px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.settings-sidebar-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+}
+
+.sub-text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #718096;
+}
+body.dark-theme .sub-text { color: #a0aec0; }
+
+.settings-main-box {
+    flex-grow: 1;
+    padding: 50px;
+    min-height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    line-height: 1.8;
+    text-align: center;
+}
+
+/* การจัดเรียงเลย์เอาต์หน้าจออุปกรณ์พกพา / มือถือ */
 @media (max-width: 768px) {
-    .main-content {
-        flex-direction: column;
-        gap: 30px;
-    }
-    .sidebar {
-        width: 100%;
-    }
-    .nav-btn:hover {
-        transform: translateY(-2px);
-    }
+    body { padding: 20px 15px; }
+    .main-content, .role-selection-grid, .settings-layout { flex-direction: column; gap: 25px; }
+    .sidebar, .settings-sidebar-card { width: 100%; }
+    .header-box { padding: 25px 20px; text-align: center; }
+    .header-box h1 { font-size: 1.65rem; }
+    .header-box p { font-size: 1.1rem; }
+    .nav-btn { text-align: center; }
+    .welcome-box, .settings-main-box { padding: 35px 20px; text-align: center; font-size: 1.15rem; }
+    .role-card { padding: 45px 20px; min-height: 140px; }
 }
